@@ -14,7 +14,7 @@ RUN apt-get -y update && apt-get -y upgrade && \
         libpthread-stubs0-dev zlib1g-dev libpq-dev libffi-dev
         
 # Installing Mega SDK Python Binding
-ENV MEGA_SDK_VERSION="3.9.7"
+ENV MEGA_SDK_VERSION="3.9.8"
 RUN git clone https://github.com/meganz/sdk.git --depth=1 -b v$MEGA_SDK_VERSION ~/home/sdk \
     && cd ~/home/sdk && rm -rf .git \
     && autoupdate -fIv && ./autogen.sh \
@@ -24,11 +24,3 @@ RUN git clone https://github.com/meganz/sdk.git --depth=1 -b v$MEGA_SDK_VERSION 
     && cd dist/ && pip3 install --no-cache-dir megasdk-$MEGA_SDK_VERSION-*.whl 
 
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove && apt-get -y autoclean
-
-WORKDIR /usr/src/app
-RUN chmod 777 /usr/src/app
-
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
